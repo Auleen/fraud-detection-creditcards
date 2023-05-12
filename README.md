@@ -13,7 +13,7 @@ A wide number of ML techniques can be used to address the problem of CCFD. This 
 
 The schema can be summarised by the following diagram:
 
-![App Screenshot](https://i.postimg.cc/rFtQT4NC/Screenshot-2022-06-24-215543.png)
+![App Screenshot](https://i.postimg.cc/v8pBnDfZ/baseline-ML-workflow-subset.png)
 ## Finding the dataset
 
 Credit card fraud is a relatively rare event, and the prevalence of fraudulent transactions is low compared to legitimate transactions. This means that datasets are usually imbalanced, with a vast majority of transactions being legitimate, making it difficult to identify the patterns and features of fraudulent transactions. \
