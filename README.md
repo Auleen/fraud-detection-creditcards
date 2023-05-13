@@ -55,6 +55,68 @@ The second type of transformation involves the customer ID and consists in creat
 The third type of transformation involves the terminal ID and consists in creating new features that characterize the ‘risk’ associated with the terminal. The risk will be defined as the average number of frauds that were observed on the terminal for three window sizes. This will lead to the creation of three new features.
 
 The simulator for transaction data has been released as part of the practical handbook on Machine Learning for Credit Card Fraud Detection - https://fraud-detection-handbook.github.io/fraud-detection-handbook/Chapter_3_GettingStarted/SimulatedDataset.html.
+## Resampling the data
+n credit card fraud detection, the number of fraudulent transactions is often much smaller than the number of non-fraudulent transactions. This means that if a model is trained on an imbalanced dataset, it may have a bias towards the majority class (i.e., non-fraudulent transactions), and may not be able to accurately detect fraudulent transactions.
 
+Resampling can help to address this issue by balancing the number of samples in each class. There are two main approaches to resampling: oversampling and undersampling.
 
+Oversampling involves adding more copies of the minority class to the dataset until it has the same number of samples as the majority class. This can be done using techniques such as random oversampling or Synthetic Minority Over-sampling Technique (SMOTE).
 
+Undersampling involves reducing the number of samples in the majority class until it has the same number of samples as the minority class. This can be done using techniques such as random undersampling or Tomek links.
+
+![App Screenshot](https://i.postimg.cc/hPWjh4Nq/undsampling.png)
+
+For the purpose of this project we will be using Random Undersampling to create a dataset of equal legitimate and fraud data points.
+
+## Building a Classification Model
+After we have resampled our data, we will now train different models to work on our prepared data. 
+### Decision Tree Model
+We will first train a decison tree model to check for fraud credit card transactions.
+A decision tree is a powerful machine learning algorithm that can be used for credit card fraud detection. The algorithm works by constructing a tree-like model of decisions and their possible consequences. Each node in the tree represents a decision, and the branches emanating from it represent the possible outcomes of that decision. 
+A decision tree model works by recursively partitioning the data based on the feature that provides the most information gain, or the most useful split in the data. The model starts with a single node that represents the entire dataset, and then iteratively splits the data into smaller subsets based on the values of the features.
+
+At each split, the algorithm selects the feature that best separates the classes, or categories, of the target variable. It does this by calculating a measure of impurity, such as entropy or Gini impurity, for each possible split. The feature that results in the greatest reduction in impurity is chosen as the splitting criterion for that node.
+
+The process of splitting the data continues recursively until a stopping criterion is met, such as reaching a maximum depth or a minimum number of samples in a leaf node. At this point, the decision tree is fully grown and can be used to make predictions for new data.
+
+![App Screenshot](https://i.postimg.cc/Jhvfz0tw/decisiontree.png)
+
+To make a prediction for a new observation, the decision tree starts at the root node and traverses down the tree based on the feature values of the observation. The prediction is then based on the majority class of the training data in the corresponding leaf node.
+
+Decision trees are useful because they are easy to interpret and visualize. The structure of the tree makes it clear which features are most important in making predictions, and how the decision is made. However, they can also be prone to overfitting, where the model is too complex and fits the noise in the data rather than the underlying patterns. Regularization techniques such as pruning can help to prevent overfitting and improve the generalization performance of the model.
+
+### Random Cut Forest
+Random Forest is a machine learning algorithm that is used for both classification and regression tasks. It works by creating an ensemble of decision trees, where each tree is trained on a randomly selected subset of the training data, and a randomly selected subset of the features.
+
+The algorithm starts by creating a specified number of decision trees, where each tree is constructed by randomly selecting a subset of the training data, with replacement. This process is known as bootstrapping, and it is used to create different versions of the training data for each tree.
+
+At each node of each decision tree, a random subset of the features is selected, and the feature that provides the best split on that subset is used to make the split. This helps to reduce the correlation between the decision trees, making the random forest more robust to overfitting and improving the accuracy of the model.
+
+![App Screenshot](https://i.postimg.cc/L52mBDfB/rfc2.png)
+
+To make a prediction for a new observation, the random forest algorithm aggregates the predictions from all the decision trees in the ensemble. For classification tasks, the prediction is based on the majority class of the predictions from the individual trees. For regression tasks, the prediction is based on the average of the predictions from the individual trees.
+
+### RFC vs Decision Tree
+
+![App Screenshot](https://i.postimg.cc/Y2Z5HbjX/rfcvsdt.png)
+
+A Decision Tree is a model that uses a tree-like graph to model decisions and their possible consequences. The algorithm builds the tree by recursively splitting the data into subsets based on the feature that provides the best split. Each internal node of the tree represents a decision based on a feature, and each leaf node represents a class label. Decision Tree models are easy to interpret and can be used for both classification and regression tasks.
+
+Random Forest Classifier is a specific implementation of the Random Forest algorithm for classification tasks. It is an ensemble learning method that creates multiple decision trees, where each tree is trained on a randomly selected subset of the training data and a randomly selected subset of the features. The predictions from all the trees in the ensemble are then combined to make a final prediction for a new observation. Random Forest Classifier is robust to overfitting, can handle high-dimensional data, and can provide estimates of feature importance.
+
+## Neural Networks for Credit Card Fraud Detection
+
+As neural networks are a pillar in both the early and the recent advances of artificial intelligence, their use for credit card fraud detection is not surprising. The first examples of simple feed-forward neural networks applied to fraud detection can bring us back to the early 90s [AFR97, GR94]. Naturally, in recent FDS studies, neural networks are often found in experimental benchmarks, along with random forests, XGBoost, or logistic regression.
+
+At the core of a feed-forward neural network is the artificial neuron, a simple machine learning model that consists of a linear combination of input variables followed by the application of an activation function 
+ (sigmoid, ReLU, tanh, …).
+ 
+![App Screenshot](https://i.postimg.cc/QNvnKCQS/ccfdann.png)
+
+A whole network is composed of a succession of layers containing neurons that take, as inputs, the output values of the previous layer.
+
+When applied to the fraud detection problem, the architecture is designed as follows:
+
+        1. At the beginning of the network, the neurons take as input the characteristics of a credit card transaction, i.e. the features that were defined in the previous chapters.
+
+        2. At the end, the network outputs a single neuron that aims at representing the probability for the input transaction to be a fraud.
