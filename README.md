@@ -146,9 +146,11 @@ In other words, accuracy can be misleading in such cases and may not provide a c
 Precision measures the fraction of predicted fraud cases that are actually fraudulent, while recall measures the fraction of actual fraudulent cases that are correctly identified by the model. The F1-score is the harmonic mean of precision and recall, and it provides a balanced evaluation of both metrics.
 
 Results for RFC:
+
 ![App Screenshot](https://i.postimg.cc/RVgHN3rD/accuracy-rfc.png)
 
 Results for Decision Tree:
+
 ![App Screenshot](https://i.postimg.cc/bNynyx5n/accuracy-dt.png)
 
 ### Threshfree Metrics
@@ -160,4 +162,5 @@ The ROC AUC score tells us how efficient the model is. The higher the AUC, the b
 Even though the accuracies for the two models are similar, the model with the higher AUC score will be more reliable because it takes into account the predicted probability. It is more likely to give you higher accuracy when predicting future data.
 
 Results for RFC and Decision Tree:
+
 ![App Screenshot](https://i.postimg.cc/kMF8P1T9/auc.png)
